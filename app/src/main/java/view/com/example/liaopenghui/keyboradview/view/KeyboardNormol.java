@@ -4,6 +4,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.inputmethodservice.KeyboardView;
@@ -29,7 +30,7 @@ public class KeyboardNormol {
 		k1 = new Keyboard(ctx, R.xml.qwerty);
 		k2 = new Keyboard(ctx, R.xml.symbols);
 		keyboardView = (KeyboardView) act.findViewById(R.id.keyboard_view);
-		keyboardView.setKeyboard(k1);
+		keyboardView.setKeyboard(k2);
 		keyboardView.setEnabled(true);
 		keyboardView.setPreviewEnabled(false);//关闭preview
 		keyboardView.setOnKeyboardActionListener(listener);
@@ -96,7 +97,21 @@ public class KeyboardNormol {
 				if (start < ed.length()) {
 					ed.setSelection(start + 1);
 				}
-			}else if(primaryCode == 57420){
+			}else if(primaryCode == 10000){
+				//+100的操作
+				double v = Double.parseDouble(editable.toString()) + 100;
+				ed.setText(String.valueOf(v));
+
+			}else if(primaryCode == 10001){
+				//-100的操作
+				try {
+					double v = Double.parseDouble(editable.toString()) - 100;
+					ed.setText(String.valueOf(v));
+					if (v < 0) throw new RuntimeException();
+				}catch (Exception e){
+					ed.setText("0");
+
+				}
 
 
 			} else {

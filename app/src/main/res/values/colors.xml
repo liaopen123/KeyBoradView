@@ -18,6 +18,7 @@
     <color name="product_options_active">#ffff9900</color>
     <color name="product_options_passive">#ff999999</color>
     <color name="limit_buy_border_bg">#ffd4bc77</color>
+ <color name="keyboard_blackground">#bababa</color>
     <color name="limit_buy_title_bg">#fffffaee</color>
     <color name="limit_buy_title_border_bg">#fff2daac</color>
     <color name="limit_buy_green">#ff00cc00</color>
