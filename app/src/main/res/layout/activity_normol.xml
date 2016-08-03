@@ -19,7 +19,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <android.inputmethodservice.KeyboardView
+        <view.com.example.liaopenghui.keyboradview.view.XZKeyboradView
             android:id="@+id/keyboard_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,6 +31,7 @@
             android:keyTextColor="@color/black"
             android:keyTextSize="28dp"
             android:labelTextSize="20dp"
+            android:visibility="invisible"
             android:shadowColor="@color/black"
             android:shadowRadius="0.0" />
     </RelativeLayout>
