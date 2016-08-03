@@ -28,6 +28,7 @@ public class XZKeyboradView extends KeyboardView {
 
     private  Keyboard numKeyboard;
     private EditText mEditText;
+    private OnSureListener onSureListener;
 
     public XZKeyboradView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -135,30 +136,39 @@ public class XZKeyboradView extends KeyboardView {
             Editable editable = mEditText.getText();
             int start = mEditText.getSelectionStart();
             if (primaryCode == Keyboard.KEYCODE_CANCEL) {// 完成
+
                 hideKeyboard();
+                if(null!=onSureListener){
+                    onSureListener.makeSure();
+                }
             } else if (primaryCode == Keyboard.KEYCODE_DELETE) {// 回退
                 if (editable != null && editable.length() > 0) {
                     if (start > 0) {
                         editable.delete(start - 1, start);
                     }
                 }
-            } else if (primaryCode == 57419) { // go left
+            } else if (primaryCode == 57419) { // go left  光标左移
                 if (start > 0) {
                     mEditText.setSelection(start - 1);
                 }
-            } else if (primaryCode == 57421) { // go right
+            } else if (primaryCode == 57421) { // go right   光标右移动
                 if (start < mEditText.length()) {
                     mEditText.setSelection(start + 1);
                 }
             }else if(primaryCode == 10000){
-                //+100的操作
-                double v = Double.parseDouble(editable.toString()) + 100;
-                mEditText.setText(String.valueOf(v));
-
-            }else if(primaryCode == 10001){
-                //-100的操作
+                //+1000的操作
                 try {
-                    double v = Double.parseDouble(editable.toString()) - 100;
+                    int v = Integer.parseInt(editable.toString()) + 1000;
+                    mEditText.setText(String.valueOf(v));
+                }catch (Exception e){
+                    mEditText.setText("1000");
+
+                }
+                mEditText.setSelection(mEditText.length());
+            }else if(primaryCode == 10001){
+                //-1000的操作
+                try {
+                    int v = Integer.parseInt(editable.toString()) - 1000;
                     mEditText.setText(String.valueOf(v));
                     if (v < 0) throw new RuntimeException();
                 }catch (Exception e){
@@ -166,7 +176,7 @@ public class XZKeyboradView extends KeyboardView {
 
                 }
 
-
+                mEditText.setSelection(mEditText.length());
             } else {
                 editable.insert(start, Character.toString((char) primaryCode));
             }
@@ -198,5 +208,13 @@ public class XZKeyboradView extends KeyboardView {
         return false;
     }
 
+
+    public void setOnClickSureListener(OnSureListener onSureListener){
+        this.onSureListener =onSureListener;
+    }
+
+    public interface  OnSureListener{
+        public void  makeSure();
+    }
 
 }
